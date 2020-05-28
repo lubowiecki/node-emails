@@ -14,7 +14,7 @@ export class Core {
   $: any;
 
   constructor(public config: Config, public production: boolean) {
-    this.$ = plugins({lazy: false});
+    this.$ = plugins();
   }
 
   setTasks() {
