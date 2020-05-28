@@ -10,14 +10,19 @@ import siphon from 'siphon-media-query';
 
 import {Config} from '../../config/models/config';
 
-const $: any = plugins();
-
 export class Core {
-  constructor(public config: Config, public production: boolean) {}
+  $: any;
+
+  constructor(public config: Config, public production: boolean) {
+    this.$ = plugins();
+  }
 
   setTasks() {
-    gulp.task('build', gulp.series(this.clean, this.pages, this.sass, this.images, this.inline));
-    gulp.task('default', gulp.series('build', this.server, this.watch));
+    gulp.task(
+      'build',
+      gulp.series(this.clean.bind(this), this.pages.bind(this), this.sass.bind(this), this.images.bind(this), this.inline.bind(this))
+    );
+    gulp.task('default', gulp.series('build', this.server.bind(this), this.watch.bind(this)));
   }
 
   // Delete the "dist" folder
@@ -53,21 +58,21 @@ export class Core {
   sass() {
     return gulp
       .src(this.config.scss)
-      .pipe($.if(!this.production, $.sourcemaps.init()))
+      .pipe(this.$.if(!this.production, this.$.sourcemaps.init()))
       .pipe(
-        $.sass({
+        this.$.sass({
           includePaths: ['node_modules/foundation-emails/scss'],
-        }).on('error', $.sass.logError)
+        }).on('error', this.$.sass.logError)
       )
       .pipe(
-        $.if(
+        this.$.if(
           this.production,
-          $.uncss({
+          this.$.uncss({
             html: [`${this.config.dist}/**/*.html`],
           })
         )
       )
-      .pipe($.if(!this.production, $.sourcemaps.write()))
+      .pipe(this.$.if(!this.production, this.$.sourcemaps.write()))
       .pipe(gulp.dest(`${this.config.dist}/css`));
   }
 
@@ -75,7 +80,7 @@ export class Core {
   images() {
     return gulp
       .src(this.config.images)
-      .pipe($.imagemin())
+      .pipe(this.$.imagemin())
       .pipe(gulp.dest(`${this.config.dist}/assets/img`));
   }
 
@@ -83,7 +88,7 @@ export class Core {
   inline() {
     return gulp
       .src(`${this.config.dist}/**/*.html`)
-      .pipe($.if(this.production, this.inliner(`${this.config.dist}/css/app.css`)))
+      .pipe(this.$.if(this.production, this.inliner(`${this.config.dist}/css/app.css`)))
       .pipe(gulp.dest(this.config.dist));
   }
 
@@ -111,15 +116,15 @@ export class Core {
     const mqCss = siphon(css);
 
     const pipe = lazypipe()
-      .pipe($.inlineCss, {
+      .pipe(this.$.inlineCss, {
         applyStyleTags: false,
         removeStyleTags: true,
         preserveMediaQueries: true,
         removeLinkTags: false,
       })
-      .pipe($.replace, '<!-- <style> -->', `<style>${mqCss}</style>`)
-      .pipe($.replace, '<link rel="stylesheet" type="text/css" href="css/app.css">', '')
-      .pipe($.htmlmin, {
+      .pipe(this.$.replace, '<!-- <style> -->', `<style>${mqCss}</style>`)
+      .pipe(this.$.replace, '<link rel="stylesheet" type="text/css" href="css/app.css">', '')
+      .pipe(this.$.htmlmin, {
         collapseWhitespace: true,
         minifyCSS: true,
       });
