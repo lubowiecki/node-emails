@@ -13,7 +13,9 @@ import {Config} from '../../config/models/config';
 const $: any = plugins();
 
 export class Core {
-  constructor(private config: Config, private production: boolean) {
+  constructor(public config: Config, public production: boolean) {}
+
+  setTasks() {
     gulp.task('build', gulp.series(this.clean, this.pages, this.sass, this.images, this.inline));
     gulp.task('default', gulp.series('build', this.server, this.watch));
   }
