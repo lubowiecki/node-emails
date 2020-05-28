@@ -1,0 +1,70 @@
+{
+  "name": "@lubowiecki/node-emails",
+  "version": "1.0.0",
+  "description": "Node email templates bundler",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "prepublishOnly": "tsc",
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lubowiecki/node-emails.git"
+  },
+  "keywords": [
+    "email templates",
+    "emails scss",
+    "emails partials",
+    "email bundler"
+  ],
+  "author": "Dawid Lubowiecki",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lubowiecki/node-emails/issues"
+  },
+  "homepage": "https://github.com/lubowiecki/node-emails#readme",
+  "devDependencies": {
+    "@types/browser-sync": "^2.26.1",
+    "@types/fs-extra": "^9.0.1",
+    "@types/gulp": "^4.0.6",
+    "@types/gulp-load-plugins": "0.0.32",
+    "@types/lazypipe": "0.0.31",
+    "@types/ramda": "^0.27.6",
+    "@types/rimraf": "^3.0.0",
+    "@types/yargs": "^15.0.5",
+    "husky": "^4.2.5",
+    "prettier": "^2.0.5",
+    "pretty-quick": "^2.0.1",
+    "tslint": "^6.1.2",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-sonarts": "^1.9.0",
+    "typescript": "^3.9.3"
+  },
+  "dependencies": {
+    "@lubowiecki/node-notify": "^1.0.0",
+    "@lubowiecki/ts-utility": "^1.0.2",
+    "browser-sync": "^2.26.7",
+    "fs-extra": "^9.0.0",
+    "gulp": "^4.0.2",
+    "gulp-load-plugins": "^2.0.3",
+    "inky": "^1.3.7",
+    "lazypipe": "^1.0.2",
+    "panini": "^1.6.3",
+    "ramda": "^0.27.0",
+    "rimraf": "^3.0.2",
+    "siphon-media-query": "^1.0.0",
+    "yargs": "^15.3.1"
+  },
+  "bin": {
+    "emails": "./dist/cli.js"
+  }
+}
