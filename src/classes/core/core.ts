@@ -14,7 +14,7 @@ export class Core {
   $: any;
 
   constructor(public config: Config, public production: boolean) {
-    this.$ = plugins();
+    this.$ = plugins({lazy: false});
   }
 
   setTasks() {
@@ -102,12 +102,17 @@ export class Core {
 
   // Watch for file changes
   watch() {
-    gulp.watch('src/pages/**/*.html').on('all', gulp.series(this.pages, this.inline, browser.reload));
-    gulp.watch(['src/layouts/**/*', 'src/partials/**/*']).on('all', gulp.series(this.resetPages, this.pages, this.inline, browser.reload));
+    gulp.watch('src/pages/**/*.html').on('all', gulp.series(this.pages.bind(this), this.inline.bind(this), browser.reload));
+    gulp
+      .watch(['src/layouts/**/*', 'src/partials/**/*'])
+      .on('all', gulp.series(this.resetPages.bind(this), this.pages.bind(this), this.inline.bind(this), browser.reload));
     gulp
       .watch(['../scss/**/*.scss', 'src/assets/scss/**/*.scss'])
-      .on('all', gulp.series(this.resetPages, this.sass, this.pages, this.inline, browser.reload));
-    gulp.watch('src/assets/img/**/*').on('all', gulp.series(this.images, browser.reload));
+      .on(
+        'all',
+        gulp.series(this.resetPages.bind(this), this.sass.bind(this), this.pages.bind(this), this.inline.bind(this), browser.reload)
+      );
+    gulp.watch('src/assets/img/**/*').on('all', gulp.series(this.images.bind(this), browser.reload));
   }
 
   // Inlines CSS into HTML, adds media query CSS into the <style> tag of the email, and compresses the HTML
