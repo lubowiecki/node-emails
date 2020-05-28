@@ -1,5 +1,6 @@
-exports.command = 'serve <command>';
+import {Serve} from '../classes/serve/serve';
+
+exports.command = 'serve [config]';
 exports.aliases = ['s'];
-exports.desc = 'Manage serve commands';
-exports.builder = (yargs: any) => yargs.commandDir('serve_cmds');
-exports.handler = (argv: any) => {};
+exports.desc = 'Serve emails';
+exports.handler = (argv: any) => Serve.emails(argv.config);

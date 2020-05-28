@@ -1,6 +1,6 @@
 {
   "name": "@lubowiecki/node-emails",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Node email templates bundler",
   "main": "dist/cli.js",
   "types": "dist/cli.d.ts",
