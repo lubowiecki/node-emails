@@ -1,0 +1,53 @@
+---
+subject: Aktywacja konta w systemie
+---
+
+<!-- prettier-ignore -->
+<container class="main">
+  <row>
+    <columns>
+      <spacer size="32"></spacer>
+      <div class="article">
+        <p> 
+          Administrator systemu <b>{{{{raw}}}}{{ adminFirstName }} {{ adminLastName }}{{{{/raw}}}}</b>
+        </p>
+        <spacer size="32"></spacer>
+        <p class="text-center heading">
+          <b>{{{{raw}}}}{{ institutionName }}{{{{/raw}}}}</b>
+        </p>
+        <spacer size="32"></spacer>
+        <p>
+          Aby skorzystać z konta aktywuj je poniższym linkiem, a następnie nadaj hasło dostępu do konta:
+        </p>
+        <spacer size="16"></spacer>
+        <div class="summary">
+          <container>
+            <row>
+              <columns large="3">
+                <span class="label">Twój login:</span>
+              </columns>
+              <columns large="9">
+                <b> 
+                  {{{{raw}}}}{{ username }}{{{{/raw}}}}
+                </b>
+              </columns>
+            </row>
+            <row>
+              <columns large="3">
+                <span class="label">Link aktywacyjny:</span>
+              </columns>
+              <columns large="9"> 
+                <a href="{{{{raw}}}}{{ originApiUrl }}{{{{/raw}}}}/new-password/{{{{raw}}}}{{ token }}{{{{/raw}}}}?email={{{{raw}}}}{{ username }}{{{{/raw}}}}">
+                  <b class="link">
+                    {{{{raw}}}}{{ originApiUrl }}{{{{/raw}}}}/new-password/{{{{raw}}}}{{ token }}{{{{/raw}}}}?email={{{{raw}}}}{{ username }}{{{{/raw}}}}
+                  </b>
+                </a>
+              </columns>
+            </row>
+          </container>
+        </div>
+      </div>
+    </columns>
+  </row>
+</container>
+{{> footer}}
