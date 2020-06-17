@@ -1,13 +1,13 @@
 {
   "name": "@lubowiecki/node-emails",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "Node email templates bundler",
   "main": "dist/cli.js",
   "types": "dist/cli.d.ts",
   "scripts": {
-    "build": "tsc"
+    "build": "npx rimraf dist && tsc && npx copyfiles example/**/* dist"
   },
-  "prepublishOnly": "tsc",
+  "prepublishOnly": "npm run build",
   "husky": {
     "hooks": {
       "pre-commit": "pretty-quick --staged"
@@ -50,8 +50,8 @@
     "typescript": "^3.9.3"
   },
   "dependencies": {
-    "@lubowiecki/node-notify": "^1.0.0",
-    "@lubowiecki/ts-utility": "^1.0.2",
+    "@lubowiecki/node-notify": "^1.0.1",
+    "@lubowiecki/ts-utility": "^1.0.3",
     "browser-sync": "^2.26.7",
     "fs-extra": "^9.0.0",
     "gulp": "^4.0.2",
